@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<!--
+		<style type="text/css">
+		body {background-color:#696969;color:white}
+		</style>
+		-->
+		<style type="text/css">
+		body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+		</style>
+		
+		<link href="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.css" rel="stylesheet" type="text/css" />
+		
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=XOzngOkHrG7hQNrGSNCFjYcCQHhCFFw4"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.js"></script>
+		<title>监测井二期（房山部分）</title>
+	</head>
+	<body>
+		<div id="allmap"></div>
+		<script type="text/javascript">
+		
+		//监测井原始数据
+		//各个监测井创建对象
+		var BY1={number:"BY1",pointX:115.628756,pointY:39.748328,pointDescribe:"龙门台村"};
+		var BY2={number:"BY2",pointX:115.7255694,pointY:39.72081389,pointDescribe:"四合村"};
+		var BY3={number:"BY3",pointX:115.7597194,pointY:39.76464167,pointDescribe:"上石堡村"};
+		var BY4={number:"BY4",pointX:115.6529252,pointY:39.8499165,pointDescribe:"史家营村"};
+		var BY5={number:"BY5",pointX:115.6995598,pointY:39.85292939,pointDescribe:"史家营镇"};
+		var BY6={number:"BY6",pointX:115.8976278,pointY:39.83123056,pointDescribe:"东班各庄村"};
+		var BY7={number:"BY7",pointX:115.9770016,pointY:39.80445789,pointDescribe:"磁家务村"};
+		var BY8={number:"BY8",pointX:116.04709,pointY:39.65306456,pointDescribe:"田家园村"};
+		var JC001={number:"JC001",pointX:115.7768028,pointY:39.80247778,pointDescribe:"贾峪口村"};
+		var JC002={number:"JC002",pointX:115.7666333,pointY:39.80837222,pointDescribe:"贾峪口村"};
+		var JC003={number:"JC003",pointX:115.7508389,pointY:39.81790556,pointDescribe:"鸳鸯水村"};
+		var JC004={number:"JC004",pointX:115.7405917,pointY:39.81931389,pointDescribe:"鸳鸯水村"};
+		var JC005={number:"JC005",pointX:115.7220167,pointY:39.82951389,pointDescribe:"柳林水村"};
+		var JC006={number:"JC006",pointX:115.7033083,pointY:39.84156389,pointDescribe:"史家营镇"};
+		var JC007={number:"JC007",pointX:115.6761556,pointY:39.85061389,pointDescribe:"青林台村"};
+		var JC008={number:"JC008",pointX:115.6966167,pointY:39.86864167,pointDescribe:"金鸡台村"};
+		var JC009={number:"JC009",pointX:115.7011028,pointY:39.87628889,pointDescribe:"金鸡台村"};
+		var JC010={number:"JC010",pointX:115.7819278,pointY:39.80821944,pointDescribe:"西台村"};
+		var JC011={number:"JC011",pointX:115.7969444,pointY:39.82102222,pointDescribe:"山川村"};
+		var JC012={number:"JC012",pointX:115.8090139,pointY:39.82624167,pointDescribe:"山川村"};
+		var JC013={number:"JC013",pointX:115.8343806,pointY:39.82040833,pointDescribe:"红煤厂村"};
+		var JC014={number:"JC014",pointX:115.8350833,pointY:39.83151944,pointDescribe:"黄土台村"};
+		var JC015={number:"JC015",pointX:115.8269667,pointY:39.85001111,pointDescribe:"大安山镇"};
+		var JC016={number:"JC016",pointX:115.8207861,pointY:39.86156944,pointDescribe:"大安山镇"};
+		var JC017={number:"JC017",pointX:115.8107551,pointY:39.86721975,pointDescribe:"大安山镇"};
+		var JC018={number:"JC018",pointX:115.7977222,pointY:39.87201389,pointDescribe:"大安山镇"};
+		var JC019={number:"JC019",pointX:115.7857889,pointY:39.88368333,pointDescribe:"大安山村"};
+		var JC020={number:"JC020",pointX:115.7574528,pointY:39.88826111,pointDescribe:"赵亩地村"};
+		var JC021={number:"JC021",pointX:115.8619472,pointY:39.80458333,pointDescribe:"长儿地村"};
+		var JC022={number:"JC022",pointX:115.876725,pointY:39.81805833,pointDescribe:"黑龙关村"};
+		var JC023={number:"JC023",pointX:115.9075389,pointY:39.81909167,pointDescribe:"陈家台村"};
+		var JC024={number:"JC024",pointX:115.8921479,pointY:39.82751336,pointDescribe:"东班各庄村"};
+		var JC025={number:"JC025",pointX:115.8792033,pointY:39.839792,pointDescribe:"碾台村"};
+		var JC026={number:"JC026",pointX:115.8752199,pointY:39.85042797,pointDescribe:"东坡村"};
+		var JC027={number:"JC027",pointX:115.8801623,pointY:39.86225875,pointDescribe:"陈家坟村"};		
+		var JC028={number:"JC028",pointX:115.8787428,pointY:39.87001833,pointDescribe:"南岭村"};
+		//将所有监测井对象放入数组中统一管理
+		var multiPoint =[BY1,BY2,BY3,BY4,BY5,BY6,BY7,BY8,JC001,JC002,JC003,JC004,JC005,JC006,JC007,JC008,JC009
+		,JC010,JC011,JC012,JC013,JC014,JC015,JC016,JC017,JC018,JC019,JC020,JC021,JC022,JC023,JC024,JC025,JC026
+		,JC027,JC028];
+		
+		// 百度地图API功能
+		var map = new BMap.Map("allmap");    // 创建Map实例
+		map.centerAndZoom(new BMap.Point(115.8269667, 39.85001111), 13);  // 初始化地图,设置中心点坐标和地图级别
+		
+		//添加地图类型控件
+		map.addControl(new BMap.MapTypeControl({
+			mapTypes:[
+				BMAP_NORMAL_MAP,
+				BMAP_HYBRID_MAP
+			]}));
+		
+		// 设置地图显示的城市 此项是必须设置的			
+		map.setCurrentCity("北京");          
+		
+		//开启鼠标滚轮缩放
+		map.enableScrollWheelZoom(true); 
+		
+		var ctrl = new BMapLib.TrafficControl({
+		showPanel: false //是否显示路况提示面板
+		});      
+		map.addControl(ctrl);
+		ctrl.setAnchor(BMAP_ANCHOR_BOTTOM_RIGHT); 
+		
+		//添加井位
+		for(var i=0;i<multiPoint.length;i++)
+		{
+			//window.alert(i);
+			var pPoint = new BMap.Point(multiPoint[i].pointX,multiPoint[i].pointY);
+			var convertor = new BMap.Convertor();
+			var pointArr = [];
+			pointArr.push(pPoint);
+			var wellNumber=multiPoint[i].number;
+			convertor.translate(pointArr,1,5,function (data)
+			{
+				if(data.status === 0) 
+				{
+					var marker=new BMap.Marker(data.points[0]);
+					map.addOverlay(marker);
+					//var label = new BMap.Label(wellNumber,{offset:new BMap.Size(20,-10)});
+					//marker.setLabel(label);
+					//map.setCenter(data.points[0]);
+				}
+			});
+			//var marker = new BMap.Marker(point);
+			//map.addOverlay(marker);
+		}
+
+		
+		</script>
+	</body>
+</html>
